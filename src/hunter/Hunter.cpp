@@ -5,6 +5,12 @@
 #include <memory>
 #include <utility>
 #include "Hunter.hpp"
+#include "../constraints/Constraints.hpp"
+#include "../constraints/PixelConstraint.hpp"
+#include "../constraints/RelativeConstraint.hpp"
+#include "../scenes/SceneManager.hpp"
+#include "../scenes/LaunchScene.hpp"
+#include "../widgets/Composite.hpp"
 #include "../widgets/Window.hpp"
 
 Hunter::Hunter() {
@@ -19,6 +25,21 @@ Hunter::~Hunter() {}
 void Hunter::init() {
 
     this->window = std::make_unique<Window>("My Hunter", std::pair<int, int>(800, 600));
+
+    std::shared_ptr<Composite> container = std::make_shared<Composite>();
+
+    this->scenesManager = std::make_unique<SceneManager>(container);
+
+    this->scenesManager->registerScene(std::make_shared<LaunchScene>());
+
+    this->scenesManager->launch("launch");
+
+    this->window->add(container, std::make_shared<Constraints>(
+        std::make_shared<PixelConstraint>(0),
+        std::make_shared<PixelConstraint>(0),
+        std::make_shared<RelativeConstraint>(1.0f),
+        std::make_shared<RelativeConstraint>(1.0f)
+    ));
 
 }
 
@@ -67,6 +88,7 @@ void Hunter::update() {
     if (!this->playing)
         return;
 
+    this->scenesManager->update();
 }
 
 void Hunter::render() {

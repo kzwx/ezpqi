@@ -6,6 +6,7 @@
 #define MY_HUNTER_HPP
 
 #include <memory>
+#include "../scenes/SceneManager.hpp"
 #include "../widgets/Window.hpp"
 
 class Hunter {
@@ -22,13 +23,15 @@ class Hunter {
         void exit();
 
     protected:
-        std::unique_ptr<Window> window;
-
         void update();
         void render();
 
         bool running;
         bool playing;
+
+        std::unique_ptr<SceneManager> scenesManager;
+
+        std::unique_ptr<Window> window;
 };
 
 #endif
