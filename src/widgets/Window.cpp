@@ -4,10 +4,11 @@
 
 #include <string>
 #include <memory>
+#include <utility>
 #include <SFML/Graphics.hpp>
 #include "Window.hpp"
 
-Window::Window(std::string title) {
+Window::Window(std::string title, std::pair<int, int> size) {
 
     this->window = new sf::RenderWindow(
         sf::VideoMode(800, 768),
@@ -16,11 +17,19 @@ Window::Window(std::string title) {
 
     this->window->setFramerateLimit(80);
 
+    this->size = size;
 }
 
-Window::~Window() {}
+Window::~Window() {
+    delete this->window;
+}
 
 void Window::display() {
+
+    this->drawAll(sf::IntRect(
+        0, 0, this->size.first, this->size.second
+    ), this->window);
+
     this->window->display();
 }
 
@@ -30,6 +39,11 @@ void Window::clear() {
 
 void Window::close() {
     this->window->close();
+}
+
+void Window::draw(sf::IntRect bounds, sf::RenderWindow *window) {
+    (void) bounds;
+    (void) window;
 }
 
 void Window::readAndDispatch() {
@@ -44,15 +58,16 @@ void Window::readAndDispatch() {
 
         if (event.type == sf::Event::Resized) {
 
+            this->size.first = event.size.width;
+            this->size.second = event.size.height;
+
             this->window->setView(sf::View(sf::FloatRect(
                 0, 0,
                 event.size.width, event.size.height
             )));
 
         }
-
     }
-
 }
 
 bool Window::isOpen() {

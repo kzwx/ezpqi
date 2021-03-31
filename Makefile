@@ -1,5 +1,8 @@
 
-SRC = src/hunter/Hunter.cpp \
+SRC = src/constraints/Constraints.cpp \
+      src/constraints/PixelConstraint.cpp \
+      src/hunter/Hunter.cpp \
+      src/widgets/Composite.cpp \
       src/widgets/Widget.cpp \
       src/widgets/Window.cpp \
       src/main.cpp

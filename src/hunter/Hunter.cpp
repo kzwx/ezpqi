@@ -3,6 +3,7 @@
  */
 
 #include <memory>
+#include <utility>
 #include "Hunter.hpp"
 #include "../widgets/Window.hpp"
 
@@ -17,7 +18,7 @@ Hunter::~Hunter() {}
 
 void Hunter::init() {
 
-    this->window = std::make_unique<Window>("My Hunter");
+    this->window = std::make_unique<Window>("My Hunter", std::pair<int, int>(800, 600));
 
 }
 
