@@ -65,8 +65,9 @@ void Window::readAndDispatch() {
                 0, 0,
                 event.size.width, event.size.height
             )));
-
         }
+
+        this->dispatchEvent(event);
     }
 }
 
