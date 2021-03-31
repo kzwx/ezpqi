@@ -17,6 +17,10 @@ void Widget::add(std::shared_ptr<Widget> child, std::shared_ptr<Constraints> con
 
 }
 
+void Widget::clear() {
+    this->children.clear();
+}
+
 void Widget::drawAll(sf::IntRect bounds, sf::RenderWindow *window) {
 
     this->draw(bounds, window);

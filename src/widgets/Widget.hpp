@@ -25,6 +25,7 @@ class Widget {
         virtual ~Widget() = default;
 
         void add(std::shared_ptr<Widget> child, std::shared_ptr<Constraints> constraints);
+        void clear();
 
         void drawAll(sf::IntRect bounds, sf::RenderWindow *window);
         virtual void draw(sf::IntRect bounds, sf::RenderWindow *window) = 0;
