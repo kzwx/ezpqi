@@ -11,7 +11,7 @@
 Window::Window(std::string title, std::pair<int, int> size) {
 
     this->window = new sf::RenderWindow(
-        sf::VideoMode(800, 768),
+        sf::VideoMode(size.first, size.second),
         title
     );
 

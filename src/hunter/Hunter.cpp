@@ -25,7 +25,7 @@ Hunter::~Hunter() {}
 
 void Hunter::init() {
 
-    this->window = std::make_unique<Window>("My Hunter", std::pair<int, int>(800, 600));
+    this->window = std::make_unique<Window>("My Hunter", std::pair<int, int>(1200, 800));
 
     std::shared_ptr<Composite> container = std::make_shared<Composite>();
 
