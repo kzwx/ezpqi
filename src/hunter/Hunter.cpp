@@ -32,7 +32,7 @@ void Hunter::init() {
     this->scenesManager = std::make_shared<SceneManager>(container);
 
     this->scenesManager->registerScene(std::make_shared<LaunchScene>(this, this->scenesManager.get()));
-    this->scenesManager->registerScene(std::make_shared<GameScene>());
+    this->scenesManager->registerScene(std::make_shared<GameScene>(this, this->scenesManager.get()));
 
     this->scenesManager->launch("launch");
 
@@ -94,6 +94,10 @@ void Hunter::stop() {
 
 void Hunter::exit() {
 
+}
+
+bool Hunter::isPaused() {
+    return !this->playing;
 }
 
 void Hunter::update() {

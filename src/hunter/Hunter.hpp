@@ -22,6 +22,8 @@ class Hunter {
         void stop();
         void exit();
 
+        bool isPaused();
+
     protected:
         void update();
         void render();
