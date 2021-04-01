@@ -24,6 +24,8 @@ class Widget {
         void drawAll(sf::IntRect bounds, sf::RenderWindow *window);
         virtual void draw(sf::IntRect bounds, sf::RenderWindow *window) = 0;
 
+        void setVisibility(bool visibility);
+
         void addFocusListener(FocusListener *listener);
         void addKeyboardListener(KeyboardListener *listener);
         void addMouseListener(MouseListener *listener);
@@ -36,6 +38,8 @@ class Widget {
 
         bool isFocused = false;
         bool isMouseOver = false;
+
+        bool visibility = true;
 
         FocusListener *focusListener = nullptr;
         KeyboardListener *keyboardListener = nullptr;

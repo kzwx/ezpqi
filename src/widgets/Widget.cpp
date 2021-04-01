@@ -24,6 +24,9 @@ void Widget::clear() {
 
 void Widget::drawAll(sf::IntRect bounds, sf::RenderWindow *window) {
 
+    if (!this->visibility)
+        return;
+
     this->draw(bounds, window);
 
     this->bounds = bounds;
@@ -43,6 +46,10 @@ void Widget::drawAll(sf::IntRect bounds, sf::RenderWindow *window) {
 
         it++;
     }
+}
+
+void Widget::setVisibility(bool visibility) {
+    this->visibility = visibility;
 }
 
 void Widget::addFocusListener(FocusListener *listener) {
@@ -80,6 +87,9 @@ static bool isCollide(int x, int y, sf::IntRect bounds) {
 }
 
 void Widget::dispatchEvent(sf::Event event) {
+
+    if (!this->visibility)
+        return;
 
     /*
      * mousePressed
@@ -161,6 +171,18 @@ void Widget::dispatchEvent(sf::Event event) {
 
         if (this->keyboardListener && this->isFocused)
             this->keyboardListener->onKeyPressed(event.text.unicode);
+    }
+
+    /*
+     * globalKeyPressed
+     */
+    if (
+        event.type == sf::Event::KeyPressed
+    ) {
+
+        if (this->keyboardListener)
+            this->keyboardListener->onGlobalKeyPressed(event.key.code);
+
     }
 
     this->propagateEvent(event);
