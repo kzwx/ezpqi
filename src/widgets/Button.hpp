@@ -17,6 +17,8 @@ class Button : public Composite, public MouseListener {
         Button(std::string content, std::string fontPath);
         virtual ~Button();
 
+        void setContent(std::string content);
+
         virtual void onMousePressed(int x, int y) override;
         virtual void onMouseReleased(int x, int y) override;
 

@@ -33,8 +33,9 @@ class Widget {
         void propagateEvent(sf::Event event);
         void dispatchEvent(sf::Event event);
 
-    protected:
         sf::IntRect bounds;
+        Widget *parent = nullptr;
+    protected:
 
         bool isFocused = false;
         bool isMouseOver = false;
@@ -44,6 +45,7 @@ class Widget {
         FocusListener *focusListener = nullptr;
         KeyboardListener *keyboardListener = nullptr;
         MouseListener *mouseListener = nullptr;
+
 
         std::vector<std::pair<std::shared_ptr<Constraints>, std::shared_ptr<Widget>>> children;
 };

@@ -12,10 +12,11 @@
 
 void Widget::add(std::shared_ptr<Widget> child, std::shared_ptr<Constraints> constraints) {
 
+    child->parent = this;
+
     this->children.push_back(
         std::pair<std::shared_ptr<Constraints>, std::shared_ptr<Widget>>(constraints, child)
     );
-
 }
 
 void Widget::clear() {

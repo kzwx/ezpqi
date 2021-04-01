@@ -34,6 +34,10 @@ Button::Button(std::string content, std::string fontPath) {
 
 Button::~Button() {}
 
+void Button::setContent(std::string content) {
+    this->text->setContent(content);
+}
+
 void Button::onMousePressed(int x, int y) {
     (void) x;
     (void) y;
