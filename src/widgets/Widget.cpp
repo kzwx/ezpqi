@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include "Widget.hpp"
 #include "../constraints/Constraints.hpp"
+#include "../listeners/MouseListener.hpp"
 
 void Widget::add(std::shared_ptr<Widget> child, std::shared_ptr<Constraints> constraints) {
 
@@ -44,36 +45,16 @@ void Widget::drawAll(sf::IntRect bounds, sf::RenderWindow *window) {
     }
 }
 
-void Widget::addMousePressedListener(MousePressedListener listener) {
-    this->mousePressedListener = listener;
+void Widget::addFocusListener(FocusListener *listener) {
+    this->focusListener = listener;
 }
 
-void Widget::addMouseReleasedListener(MouseReleasedListener listener) {
-    this->mouseReleasedListener = listener;
+void Widget::addKeyboardListener(KeyboardListener *listener) {
+    this->keyboardListener = listener;
 }
 
-void Widget::addMouseMovedListener(MouseMovedListener listener) {
-    this->mouseMovedListener = listener;
-}
-
-void Widget::addMouseEnteredListener(MouseEnteredListener listener) {
-    this->mouseEnteredListener = listener;
-}
-
-void Widget::addMouseExitedListener(MouseExitedListener listener) {
-    this->mouseExitedListener = listener;
-}
-
-void Widget::addFocusedInListener(FocusedInListener listener) {
-    this->focusedInListener = listener;
-}
-
-void Widget::addFocusedOutListener(FocusedOutListener listener) {
-    this->focusedOutListener = listener;
-}
-
-void Widget::addKeyPressedListener(KeyPressedListener listener) {
-    this->keyPressedListener = listener;
+void Widget::addMouseListener(MouseListener *listener) {
+    this->mouseListener = listener;
 }
 
 void Widget::propagateEvent(sf::Event event) {
@@ -108,11 +89,11 @@ void Widget::dispatchEvent(sf::Event event) {
         event.type == sf::Event::MouseButtonPressed && isCollide(event.mouseButton.x, event.mouseButton.y, this->bounds)
     ) {
 
-        if (this->mousePressedListener)
-            this->mousePressedListener(event.mouseButton.x, event.mouseButton.y);
+        if (this->mouseListener)
+            this->mouseListener->onMousePressed(event.mouseButton.x, event.mouseButton.y);
 
-        if (!this->isFocused && this->focusedInListener)
-            this->focusedInListener();
+        if (!this->isFocused && this->focusListener)
+            this->focusListener->onFocusIn();
 
         this->isFocused = true;
     }
@@ -124,8 +105,8 @@ void Widget::dispatchEvent(sf::Event event) {
         event.type == sf::Event::MouseButtonPressed && !isCollide(event.mouseButton.x, event.mouseButton.y, this->bounds)
     ) {
 
-        if (this->isFocused && this->focusedOutListener)
-            this->focusedOutListener();
+        if (this->isFocused && this->focusListener)
+            this->focusListener->onFocusOut();
 
         this->isFocused = false;
     }
@@ -137,8 +118,8 @@ void Widget::dispatchEvent(sf::Event event) {
         event.type == sf::Event::MouseButtonReleased && isCollide(event.mouseButton.x, event.mouseButton.y, this->bounds)
     ) {
 
-        if (this->mouseReleasedListener)
-            this->mouseReleasedListener(event.mouseButton.x, event.mouseButton.y);
+        if (this->mouseListener)
+            this->mouseListener->onMouseReleased(event.mouseButton.x, event.mouseButton.y);
     }
 
     /*
@@ -149,11 +130,11 @@ void Widget::dispatchEvent(sf::Event event) {
         event.type == sf::Event::MouseMoved && isCollide(event.mouseMove.x, event.mouseMove.y, this->bounds)
     ) {
 
-        if (this->mouseMovedListener)
-            this->mouseMovedListener(event.mouseMove.x, event.mouseMove.y);
+        if (this->mouseListener)
+            this->mouseListener->onMouseMoved(event.mouseMove.x, event.mouseMove.y);
 
-        if (this->mouseEnteredListener && !this->isMouseOver)
-            this->mouseEnteredListener(event.mouseMove.x, event.mouseMove.y);
+        if (this->mouseListener && !this->isMouseOver)
+            this->mouseListener->onMouseEntered(event.mouseMove.x, event.mouseMove.y);
 
         this->isMouseOver = true;
     }
@@ -165,8 +146,8 @@ void Widget::dispatchEvent(sf::Event event) {
         event.type == sf::Event::MouseMoved && !isCollide(event.mouseMove.x, event.mouseMove.y, this->bounds)
     ) {
 
-        if (this->mouseExitedListener && this->isMouseOver)
-            this->mouseExitedListener(event.mouseMove.x, event.mouseMove.y);
+        if (this->mouseListener && this->isMouseOver)
+            this->mouseListener->onMouseExited(event.mouseMove.x, event.mouseMove.y);
 
         this->isMouseOver = false;
     }
@@ -178,8 +159,8 @@ void Widget::dispatchEvent(sf::Event event) {
         event.type == sf::Event::TextEntered
     ) {
 
-        if (this->keyPressedListener && this->isFocused)
-            this->keyPressedListener(event.text.unicode);
+        if (this->keyboardListener && this->isFocused)
+            this->keyboardListener->onKeyPressed(event.text.unicode);
     }
 
     this->propagateEvent(event);
