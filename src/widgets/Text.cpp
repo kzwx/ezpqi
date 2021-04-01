@@ -14,7 +14,7 @@ Text::Text(std::string content, std::string fontPath) {
     this->text.setString(content);
     this->text.setFont(this->font);
 
-    this->text.setCharacterSize(24);
+    this->text.setCharacterSize(20);
     this->text.setFillColor(sf::Color::Black);
 
 }
