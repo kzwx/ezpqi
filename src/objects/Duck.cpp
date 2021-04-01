@@ -80,7 +80,7 @@ void Duck::update() {
     }
 
     if (!this->isFalling)
-        this->image->resize(sf::IntRect(0 + 39 * this->sheetIndex, 153, 39, 38));
+        this->image->resize(sf::IntRect((this->dirx > 0 ? 0 : 39) + 39 * this->sheetIndex, 153, this->dirx > 0 ? 39 : -39, 38));
     else
         this->image->resize(sf::IntRect(0, 231, 36, 36));
 
@@ -91,7 +91,7 @@ void Duck::update() {
         return;
 
     if (this->image->bounds.left > this->image->parent->bounds.width || this->image->bounds.left < 0) {
-        *(this->score) -= 1;
+        *(this->score) -= 2;
         this->isDead = true;
     }
 }

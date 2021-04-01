@@ -14,6 +14,7 @@
 #include "../constraints/RelativeConstraint.hpp"
 #include "../objects/Duck.hpp"
 #include "../widgets/Image.hpp"
+#include "../widgets/Text.hpp"
 #include "../widgets/Texture.hpp"
 
 
@@ -104,8 +105,10 @@ void GameScene::onInit() {
 
     std::shared_ptr<Button> continueButton = std::make_shared<Button>("Continue", "./res/fonts/lato.ttf");
     std::shared_ptr<Button> leftButton = std::make_shared<Button>("Left", "./res/fonts/lato.ttf");
-    std::shared_ptr<Button> messageBoxLoose = std::make_shared<Button>("Vous avez perdu, retentez votre chance", "./res/fonts/lato.ttf");
-    std::shared_ptr<Button> messageBoxWin = std::make_shared<Button>("Vous avez reussi a passer toutes les epreuves,\nenvoyer une candidature a aer@gmail.com,\nnous avons besoin de vous", "./res/fonts/lato.ttf");
+    std::shared_ptr<Text> messageBoxLoose = std::make_shared<Text>("Vous avez perdu, retentez votre chance", "./res/fonts/lato.ttf");
+    std::shared_ptr<Text> messageBoxWin = std::make_shared<Text>("Vous avez reussi a passer toutes les epreuves,\nnous avons besoins de votre talent\nenvoyer une candidature a marseille@epitech.eu\npour commencer tres prochainement la selection", "./res/fonts/lato.ttf");
+    messageBoxLoose->setForeground(sf::Color::White);
+    messageBoxWin->setForeground(sf::Color::White);
 
     std::shared_ptr<Texture> backgroundTexture = std::make_shared<Texture>("./res/images/background.png", sf::IntRect(0, 0, 1280, 769));
     this->sheets = std::make_shared<Texture>("./res/images/sheet.png", sf::IntRect(0, 0, 375, 267));
@@ -173,7 +176,7 @@ void GameScene::onInit() {
     this->add(messageBoxLoose, std::make_shared<Constraints>(
         std::make_shared<CenterConstraint>(),
         std::make_shared<AddConstraint>(std::make_shared<CenterConstraint>(), -20 - 80),
-        std::make_shared<PixelConstraint>(500),
+        std::make_shared<PixelConstraint>(300),
         std::make_shared<PixelConstraint>(80)
     ));
 
@@ -204,7 +207,7 @@ void GameScene::onUpdate() {
         it++;
     }
 
-    if (rand() % 40 == 0)
+    if (rand() % 30 == 0)
         this->spawn();
 
     if (0 <= this->score && this->score <= 100)

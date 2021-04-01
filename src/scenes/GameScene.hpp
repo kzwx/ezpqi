@@ -14,6 +14,7 @@
 #include "../objects/Duck.hpp"
 #include "../listeners/KeyboardListener.hpp"
 #include "../widgets/Image.hpp"
+#include "../widgets/Text.hpp"
 #include "../widgets/Button.hpp"
 
 class ContinueMouseListener : public MouseListener {
@@ -71,8 +72,8 @@ class GameScene : public Scene, public KeyboardListener {
 
         std::shared_ptr<Button> continueButton;
         std::shared_ptr<Button> leftButton;
-        std::shared_ptr<Button> messageBoxLoose;
-        std::shared_ptr<Button> messageBoxWin;
+        std::shared_ptr<Text> messageBoxLoose;
+        std::shared_ptr<Text> messageBoxWin;
     protected:
         Hunter *hunter;
         SceneManager *manager;
