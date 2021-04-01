@@ -9,6 +9,7 @@
 #include "../constraints/PixelConstraint.hpp"
 #include "../constraints/RelativeConstraint.hpp"
 #include "../scenes/SceneManager.hpp"
+#include "../scenes/GameScene.hpp"
 #include "../scenes/LaunchScene.hpp"
 #include "../widgets/Composite.hpp"
 #include "../widgets/Window.hpp"
@@ -31,8 +32,9 @@ void Hunter::init() {
     this->scenesManager = std::make_unique<SceneManager>(container);
 
     this->scenesManager->registerScene(std::make_shared<LaunchScene>());
+    this->scenesManager->registerScene(std::make_shared<GameScene>());
 
-    this->scenesManager->launch("launch");
+    this->scenesManager->launch("game");
 
     this->window->add(container, std::make_shared<Constraints>(
         std::make_shared<PixelConstraint>(0),
@@ -60,11 +62,22 @@ void Hunter::pause() {
 
 void Hunter::loop() {
 
+    sf::Clock clock;
+
+    int last_tick = 0;
+    int tick_time = 1000000 / 60;
+
     while (this->running) {
 
         this->window->readAndDispatch();
 
-        this->update();
+        if (clock.getElapsedTime().asMicroseconds() - last_tick > tick_time) {
+
+            this->update();
+
+            last_tick += tick_time;
+        }
+
         this->render();
 
         if (!this->window->isOpen())

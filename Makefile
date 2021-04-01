@@ -1,9 +1,13 @@
 
-SRC = src/constraints/CenterConstraint.cpp \
+SRC = src/constraints/AddConstraint.cpp \
+      src/constraints/CenterConstraint.cpp \
       src/constraints/Constraints.cpp \
+      src/constraints/CoverConstraint.cpp \
       src/constraints/PixelConstraint.cpp \
       src/constraints/RelativeConstraint.cpp \
       src/hunter/Hunter.cpp \
+      src/objects/Duck.cpp \
+      src/scenes/GameScene.cpp \
       src/scenes/LaunchScene.cpp \
       src/scenes/SceneManager.cpp \
       src/widgets/Button.cpp \
