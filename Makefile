@@ -8,7 +8,9 @@ SRC = src/constraints/CenterConstraint.cpp \
       src/scenes/SceneManager.cpp \
       src/widgets/Button.cpp \
       src/widgets/Composite.cpp \
+      src/widgets/Image.cpp \
       src/widgets/Text.cpp \
+      src/widgets/Texture.cpp \
       src/widgets/Widget.cpp \
       src/widgets/Window.cpp \
       src/main.cpp

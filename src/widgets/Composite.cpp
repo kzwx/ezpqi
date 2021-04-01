@@ -6,11 +6,7 @@
 #include "Composite.hpp"
 #include "Widget.hpp"
 
-Composite::Composite() {
-
-    this->shape = sf::RectangleShape();
-
-}
+Composite::Composite() {}
 
 Composite::~Composite() {}
 
