@@ -10,6 +10,7 @@ class KeyboardListener {
         virtual ~KeyboardListener() = default;
 
         virtual void onKeyPressed(char character) = 0;
+        virtual void onGlobalKeyPressed(sf::Keyboard::Key code) = 0;
 };
 
 #endif
