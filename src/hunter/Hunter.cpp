@@ -29,12 +29,12 @@ void Hunter::init() {
 
     std::shared_ptr<Composite> container = std::make_shared<Composite>();
 
-    this->scenesManager = std::make_unique<SceneManager>(container);
+    this->scenesManager = std::make_shared<SceneManager>(container);
 
-    this->scenesManager->registerScene(std::make_shared<LaunchScene>());
+    this->scenesManager->registerScene(std::make_shared<LaunchScene>(this, this->scenesManager.get()));
     this->scenesManager->registerScene(std::make_shared<GameScene>());
 
-    this->scenesManager->launch("game");
+    this->scenesManager->launch("launch");
 
     this->window->add(container, std::make_shared<Constraints>(
         std::make_shared<PixelConstraint>(0),

@@ -29,7 +29,7 @@ class Hunter {
         bool running;
         bool playing;
 
-        std::unique_ptr<SceneManager> scenesManager;
+        std::shared_ptr<SceneManager> scenesManager;
 
         std::unique_ptr<Window> window;
 };
