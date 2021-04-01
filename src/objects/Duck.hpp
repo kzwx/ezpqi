@@ -12,7 +12,7 @@
 
 class Duck : public MouseListener {
     public:
-        Duck(std::shared_ptr<Image> image, std::shared_ptr<AddConstraint> x, std::shared_ptr<AddConstraint> y);
+        Duck(std::shared_ptr<Image> image, std::shared_ptr<AddConstraint> x, std::shared_ptr<AddConstraint> y, int *score);
         virtual ~Duck();
 
         void update();
@@ -25,16 +25,23 @@ class Duck : public MouseListener {
         virtual void onMouseEntered(int x, int y) override;
         virtual void onMouseExited(int x, int y) override;
 
-    protected:
         std::shared_ptr<Image> image;
+    protected:
         std::shared_ptr<AddConstraint> x;
         std::shared_ptr<AddConstraint> y;
 
         bool isFalling;
+        int isDead;
 
         float dirx;
         float diry;
         float dirFall;
+
+        int sheetIndex;
+
+        int tick;
+
+        int *score;
 };
 
 #endif
